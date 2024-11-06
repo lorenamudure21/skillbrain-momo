@@ -10,4 +10,4 @@ function countLetter(str, letter) {
     }
     return count;
 } 
-console.log(countLetter("Ana are mere", "a"));
+console.log(countLetter("Ana are mere", "e"));
