@@ -15,6 +15,7 @@ console.log("Ingrediente: ");
 
 //iar cu forEach vom parcurge lista de ingrediente
 reteta.ingrediente.forEach(function(ingredient) {
+//"- " cu ajutorul acestuia vom pune separat fiecare ingredient
     console.log("- " + ingredient);
 
 });

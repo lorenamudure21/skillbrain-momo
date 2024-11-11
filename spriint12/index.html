@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advice App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="advice-container">
+        <!-- Titlul "ADVICE #..." cu număr dinamic din API -->
+        <div class="advice-title">
+            <span>ADVICE</span>
+            <span id="advice-number">#1</span> <!-- Valoarea va fi actualizată din API -->
+        </div>
+
+        <!-- Textul sfatului -->
+        <div class="advice-text" id="advice-text">Click the button to get a new advice!</div>
+
+        <!-- Bara sub text -->
+        <div class="divider">
+            <img src="http://www.w3.org/2000/svg" alt="Divider" class="divider-image">
+        </div>
+
+        <!-- Butonul cu zar (imagine) -->
+        <div class="button-container">
+            <button class="dice-button" onclick="getAdvice()">
+                <img src="http://www.w3.org/2000/svg" alt="Dice Button">
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
