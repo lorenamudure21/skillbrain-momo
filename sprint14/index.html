@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <title>Space Exploration</title>
+</head>
+<body>
+  <header class="site-header">
+    <img src="assets/shared/logo.svg.png" alt="Logo" class="logo">
+    <nav class="navigation">
+      <button id="btn-home" class="nav-btn">00 Home</button>
+      <button id="btn-destination" class="nav-btn">01 Destination</button>
+      <button id="btn-crew" class="nav-btn">02 Crew</button>
+      <button id="btn-technology" class="nav-btn">03 Technology</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home-section" class="home">
+      <div class="home-text">
+        <h2>SO, YOU WANT TO TRAVEL TO</h2>
+        <h1>SPACE</h1>
+        <p>Experience the ultimate adventure of traveling beyond the limits of Earth.</p>
+      </div>
+      <button id="explore-btn" class="explore-btn">EXPLORE</button>
+    </section>
+
+    <section id="destination-section" class="content-section hidden">
+      <h2>01 PICK YOUR DESTINATION</h2>
+      <div class="destination-info">
+        <img id="destination-image" src="" alt="Destination Image">
+        <div class="text-details">
+          <h1 id="destination-title"></h1>
+          <p id="destination-description"></p>
+          <hr>
+          <div class="details">
+            <div>
+              <p class="label">AVG. DISTANCE</p>
+              <p id="distance"></p>
+            </div>
+            <div>
+              <p class="label">EST. TRAVEL TIME</p>
+              <p id="travel-time"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="crew-section" class="content-section hidden">
+      <h2>02 MEET YOUR CREW</h2>
+      <div class="crew-content">
+        <div class="crew-text">
+          <h3 id="crew-role"></h3>
+          <h1 id="crew-name"></h1>
+          <p id="crew-description"></p>
+        </div>
+        <img id="crew-image" src="" alt="Crew Member Image">
+      </div>
+    </section>
+
+    <section id="technology-section" class="content-section hidden">
+      <h2>03 SPACE LAUNCH 101</h2>
+      <div class="technology-content">
+        <div class="text">
+          <h3>THE TERMINOLOGY…</h3>
+          <h1 id="technology-name"></h1>
+          <p id="technology-description"></p>
+        </div>
+        <img id="technology-image" src="" alt="Technology Image">
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
