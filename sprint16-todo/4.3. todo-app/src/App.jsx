@@ -1,140 +1,106 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "./components/card/Card";
-import Input from "./components/input/Input";
 import TodoItem from "./components/todo-item/TodoItem";
-import TextArea from "./components/input/TextArea";
 import Button from "./components/button/Button";
-import Modal from "./components/modal/Modal";
 import "./App.css";
+import Modal from "./components/modal/Modal";
 
 const TODOS_MOCK = [
   {
     id: "1",
     title: "Todo 1",
-    description: "Scrie un raport pentru echipa de proiect.",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. At id illo repellendus non maiores in pariatur aliquam iure fugit amet!",
     completed: false,
   },
   {
     id: "2",
     title: "Todo 2",
-    description: "Planifică antrenamentul de dimineață.",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
     completed: false,
   },
   {
     id: "3",
     title: "Todo 3",
-    description: "Pregătește-te pentru întâlnirea de mâine.",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
     completed: true,
+  },
+  {
+    id: "6",
+    title: "Todo 6",
+    description: "Terminam cursul de React",
+    completed: false,
   },
   {
     id: "4",
     title: "Todo 4",
-    description: "Învață noțiuni avansate de React.",
-    completed: false,
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
+    completed: true,
   },
   {
     id: "5",
     title: "Todo 5",
-    description: "Finalizează documentația pentru proiect.",
-    completed: false,
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
+    completed: true,
   },
 ];
 
 function App() {
-  const [todos, setTodos] = useState(TODOS_MOCK);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
+  const compareTodosIdFn = (todo1, todo2) => parseInt(todo1.id) > parseInt(todo2.id) ? 1 : -1;
+  const [todos, setTodos] = React.useState(TODOS_MOCK);
+  const lastId = todos.sort(compareTodosIdFn).slice().pop().id;
+  const nextId = React.useRef(parseInt(lastId) + 1);
+  const uncompletedTodos = todos.filter(todo => !todo.completed);
+  const onCreateTodoItemFn = todo =>
+    <TodoItem key={todo.id} todo={todo} onDeleteTodo={()=>onDeleteTodo(todo.id)} />
+    ;
+  const uncompletedTodosTags = uncompletedTodos.map(onCreateTodoItemFn);
+  const completedTodos = todos.filter(todo => todo.completed);
+  const completedTodosTags = completedTodos.map(onCreateTodoItemFn);
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newTodo = {
-      id: `${todos.length + 1}`,
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const onModalClose = () => {
+    setIsModalOpen(false);
+  }
+  const onTodoCreate = (title, description) => {
+    setTodos(todos => [...todos,
+    {
+      id: nextId.current.toString(),
       title: title,
       description: description,
       completed: false,
-    };
-    setTodos([...todos, newTodo]);
-    setTitle("");
-    setDescription("");
-    setIsModalOpen(false);
-  };
+    }]);
+  
+    nextId.current = nextId.current + 1; 
+  }
 
-  const handleToggleCompleted = (id) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-  };
-
-  const uncompletedTodos = todos.filter((todo) => !todo.completed);
-  const uncompletedTodosTags = uncompletedTodos.map((todo) => (
-    <TodoItem key={todo.id} todo={todo} onToggleCompleted={handleToggleCompleted} />
-  ));
-  const completedTodos = todos.filter((todo) => todo.completed);
-  const completedTodosTags = completedTodos.map((todo) => (
-    <TodoItem key={todo.id} todo={todo} onToggleCompleted={handleToggleCompleted} />
-  ));
+  const onDeleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  }
 
   return (
     <div className="App">
       <div className="app-container">
-        {/* Create Card */}
-        <Card>
-          <h2>Create Todo</h2>
-          <form onSubmit={handleSubmit}>
-            <Input
-              value={title}
-              onChange={handleTitleChange}
-              placeholder="Title"
-              type="text"
-            />
-            <TextArea
-              value={description}
-              onChange={handleDescriptionChange}
-              placeholder="Description"
-            />
-            <Button type="submit">Create</Button>
-          </form>
-        </Card>
+        <Modal isOpen={isModalOpen} onClose={onModalClose} onTodoCreate={onTodoCreate}>
+        </Modal>
 
-        {/* My Todos */}
+        
+        {/* 
+          My Todos
+        */}
         <Card>
           <h1>My todos</h1>
           <Button onClick={() => setIsModalOpen(true)}>Add +</Button>
-          <div className="list-container">{uncompletedTodosTags}</div>
+          <div className="list-container">
+            {uncompletedTodosTags}
+          </div>
           <div className="separator"></div>
           <h2>Completed</h2>
-          <div className="list-container">{completedTodosTags}</div>
+          <div className="list-container">
+            {completedTodosTags}
+          </div>
         </Card>
-
-        {/* Modal */}
-        {isModalOpen && (
-          <Modal onClose={() => setIsModalOpen(false)}>
-            <h2>Create Todo</h2>
-            <form onSubmit={handleSubmit}>
-              <Input
-                value={title}
-                onChange={handleTitleChange}
-                placeholder="Title"
-                type="text"
-              />
-              <TextArea
-                value={description}
-                onChange={handleDescriptionChange}
-                placeholder="Description"
-              />
-              <Button type="submit">Create</Button>
-            </form>
-          </Modal>
-        )}
       </div>
     </div>
   );
